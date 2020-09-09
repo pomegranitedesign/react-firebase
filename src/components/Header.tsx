@@ -2,7 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
-const Header = () => {
+interface HeaderProps {
+	isSignedIn: boolean
+	logout: () => void
+}
+
+const Header = ({ isSignedIn, logout }: HeaderProps) => {
 	return (
 		<Wrapper>
 			<List>
@@ -10,7 +15,11 @@ const Header = () => {
 					<NavLink to="/">Home</NavLink>
 				</li>
 				<li>
-					<NavLink to="/auth">Sign In / Sign Up</NavLink>
+					{isSignedIn ? (
+						<button onClick={logout}>Logout</button>
+					) : (
+						<NavLink to="/auth">Sign In / Sign Up</NavLink>
+					)}
 				</li>
 			</List>
 		</Wrapper>
