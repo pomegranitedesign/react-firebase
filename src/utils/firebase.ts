@@ -22,5 +22,6 @@ firebase.initializeApp(firebaseConfig)
 export const db = firebase.firestore()
 
 // Refs
+export const usersCollection = db.collection('users')
 
 export default firebase

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import RegisterForm from './RegisterForm'
 import { Input, Button, Title } from './Common'
-import firebase from '../utils/firebase'
+import firebase, { usersCollection } from '../utils/firebase'
 
 interface AuthFormProps {}
 
@@ -29,10 +29,11 @@ const AuthForm = (props: AuthFormProps) => {
 				firebase
 					.auth()
 					.createUserWithEmailAndPassword(email, password)
-					.then(() => {
-						console.log('The user is registered')
+					.then(async () => {
+						await usersCollection.add({ email, password })
 						setEmail('')
 						setPassword('')
+						console.log('The user is registered')
 						history.push('/')
 					})
 					.catch((err) => {
